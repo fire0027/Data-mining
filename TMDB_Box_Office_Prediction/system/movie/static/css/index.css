@@ -1,0 +1,38 @@
+.topbackground{
+    margin-left: 27%;
+}
+
+.mainchoose{
+     margin-left: 16%;
+     margin-top: 5px;
+}
+
+.nav-my{
+    margin-right: 18%;
+}
+
+.fileup{
+    margin-top: 20px;
+}
+
+.filelen{
+    width: 70%;
+}
+
+.fileright{
+    margin-right: 100px;
+}
+
+.myform{
+    margin-top: 20px;
+    width: 80%;
+}
+a{
+    color: black;
+}
+a:hover{
+    color: black;
+}
+.loading-div{
+    display: none;
+}

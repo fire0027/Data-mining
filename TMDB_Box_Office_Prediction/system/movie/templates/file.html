@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电影票房预测</title>
+    <script src="{% static 'js/jquery-3.6.4.min.js' %}"></script>
+    <link href="{% static 'css/bootstrap/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/index.css' %}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div>
+    <div class="topbackground">
+        <img src="../static/img/background.png" style="height: 190px">
+    </div>
+    <div class="mainchoose">
+        <ul class="nav nav-tabs nav-my">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/">single</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/file">File</a>
+            </li>
+        </ul>
+        <form class="mb-3 fileup" action="/file/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if results %}
+            {% else %}
+                <label for="formFile" class="form-label">请选择要预测的电影数据文件</label>
+            {% endif %}
+            <div class="input-group filelen">
+                {% if filename %}
+                {% else %}
+                    <input class="form-control fileright" type="file" name="formFile" required>
+                    <button class="btn btn-primary" type="submit" id="btn">开始预测</button>
+                {% endif %}
+            </div>
+        </form>
+        {% if filename %}
+            <label>预测文件：{{ filename }}</label>
+            <a style="margin-left: 10px;color: #0a53be" href="/file">再次预测</a>
+        {% endif %}
+        <div>
+            <div class="loading-div">
+                <p class="card-text placeholder-glow">
+                    <span class="placeholder col-7"></span>
+                    <span class="placeholder col-5"></span>
+                    <span class="placeholder col-4"></span>
+                    <span class="placeholder col-6"></span>
+                    <span class="placeholder col-8"></span>
+                    <span class="placeholder col-7"></span>
+                    <span class="placeholder col-5"></span>
+                    <span class="placeholder col-4"></span>
+                    <span class="placeholder col-6"></span>
+                </p>
+            </div>
+
+            <div style="width: 55%;float: left;margin-top: 10px">
+                <ul class="list-group">
+                    {% for result in results %}
+                        <li class="list-group-item">
+                            <label style="float: left;">id:{{ result.id }}</label>
+                            <label style="float:left;margin-left: 50px">预测结果:{{ result.renvenue }}</label>
+                            <label style="float:left;margin-left: 100px">用时:{{ result.usetime }}s</label>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+            {% if totaltime %}
+                <label style="margin-left: 26px">总用时：{{ totaltime }}s</label>
+            {% endif %}
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>
+<script>
+    document.onreadystatechange = function () {
+        console.log(document.readyState)
+        if (document.readyState === "complete") {
+            $(".loading-div").css("display", "none");
+            $('body').css('overflow', 'scroll');
+        }
+    }
+    $("#btn").click(function(event){
+        $(".loading-div").css("display", "block");
+    })
+
+</script>

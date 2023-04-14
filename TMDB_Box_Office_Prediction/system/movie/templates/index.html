@@ -1,0 +1,244 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电影票房预测</title>
+    <link href="{% static 'css/bootstrap/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/index.css' %}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div>
+    <div class="topbackground">
+        <img src="../static/img/background.png" style="height: 190px">
+    </div>
+    <div class="mainchoose">
+        <ul class="nav nav-tabs nav-my">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">single</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/file">File</a>
+            </li>
+        </ul>
+        <div class="myform">
+            <form class="row g-3 needs-validation" method="post" action="/">
+                {% csrf_token %}
+                <div class="col-md-5">
+                    <label for="validationDefault03" class="form-label">电影名</label>
+                    <input type="text" class="form-control" name="moviename" required value="{{ moviename }}">
+                    <div class="invalid-tooltip">
+                        请输入电影名
+                    </div>
+                    <div class="invalid-tooltip">
+                        Please select a valid state.
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault01" class="form-label">预算</label>
+                    <input type="number" class="form-control" name="budget" value="{{ budget }}" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="validationDefault01" class="form-label">受欢迎程度</label>
+                    <input type="number" class="form-control" name="popularity" value="{{ popularity }}" required
+                           step="0.000001">
+                </div>
+                <div class="col-md-3">
+                    <label for="validationDefaultUsername" class="form-label">原始语言</label>
+                    <div class="input-group">
+                        {% if is_en == '1' %}
+                            <div class="form-check" style="margin-right: 20px">
+                                <input class="form-check-input" type="radio" name="is_en" id="isen" checked value="1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    英语
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="is_en" id="isnoten" value="0">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    非英语
+                                </label>
+                            </div>
+                        {% else %}
+                            <div class="form-check" style="margin-right: 20px">
+                                <input class="form-check-input" type="radio" name="is_en" id="isen" value="1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    英语
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="is_en" id="isnoten" value="0"
+                                       checked>
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    非英语
+                                </label>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="validationDefault04" class="form-label">主页</label>
+                    <div class="input-group">
+                        {% if has_homepage == '1' %}
+                            <div class="form-check" style="margin-right: 20px">
+                                <input class="form-check-input" type="radio" name="has_homepage" id="hashomepage"
+                                       checked value="1">
+                                <label class="form-check-label" for="flexRadioDefault3">
+                                    有
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="has_homepage" id="nohomepage"
+                                       value="0">
+                                <label class="form-check-label" for="flexRadioDefault4">
+                                    无
+                                </label>
+                            </div>
+                        {% else %}
+                            <div class="form-check" style="margin-right: 20px">
+                                <input class="form-check-input" type="radio" name="has_homepage" id="hashomepage"
+                                       value="1">
+                                <label class="form-check-label" for="flexRadioDefault3">
+                                    有
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="has_homepage" id="nohomepage"
+                                       value="0" checked>
+                                <label class="form-check-label" for="flexRadioDefault4">
+                                    无
+                                </label>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="validationDefault04" class="form-label">标语</label>
+                    <div class="input-group">
+                        {% if has_tagline == '1' %}
+                            <div class="form-check" style="margin-right: 20px">
+                                <input class="form-check-input" type="radio" name="has_tagline" id="hassignal" checked
+                                       value="1">
+                                <label class="form-check-label" for="flexRadioDefault3">
+                                    有
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="has_tagline" id="nosignal" value="0">
+                                <label class="form-check-label" for="flexRadioDefault4">
+                                    无
+                                </label>
+                            </div>
+                        {% else %}
+                            <div class="form-check" style="margin-right: 20px">
+                                <input class="form-check-input" type="radio" name="has_tagline" id="hassignal"
+                                       value="1">
+                                <label class="form-check-label" for="flexRadioDefault3">
+                                    有
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="has_tagline" id="nosignal" value="0"
+                                       checked>
+                                <label class="form-check-label" for="flexRadioDefault4">
+                                    无
+                                </label>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="validationDefault04" class="form-label">属于收藏</label>
+                    <div class="input-group">
+                        {% if collection == '1' %}
+                            <div class="form-check" style="margin-right: 20px">
+                                <input class="form-check-input" type="radio" name="collection" id="hascollect" checked
+                                       value="1">
+                                <label class="form-check-label" for="flexRadioDefault3">
+                                    是
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="collection" id="nocollect" value="0">
+                                <label class="form-check-label" for="flexRadioDefault4">
+                                    否
+                                </label>
+                            </div>
+                        {% else %}
+                            <div class="form-check" style="margin-right: 20px">
+                                <input class="form-check-input" type="radio" name="collection" id="hascollect"
+                                       value="1">
+                                <label class="form-check-label" for="flexRadioDefault3">
+                                    是
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="collection" id="nocollect" value="0"
+                                       checked>
+                                <label class="form-check-label" for="flexRadioDefault4">
+                                    否
+                                </label>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault05" class="form-label">首次上映日期</label>
+                    <input type="date" class="form-control" name="first_date" required value="{{ first_date }}">
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault05" class="form-label">电影时长</label>
+                    <input type="text" class="form-control" name="runtime" required value="{{ runtime }}">
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault05" class="form-label">制作公司数</label>
+                    <input type="number" class="form-control" name="num_production_companies" required
+                           value="{{ num_production_companies }}">
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault05" class="form-label">制作国家数</label>
+                    <input type="number" class="form-control" name="num_production_countries" required
+                           value="{{ num_production_countries }}">
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault05" class="form-label">输出语言数</label>
+                    <input type="number" class="form-control" name="num_spoken_languages" required
+                           value="{{ num_spoken_languages }}">
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault05" class="form-label">演员数</label>
+                    <input type="number" class="form-control" name="num_cast" required value="{{ num_cast }}">
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault05" class="form-label">剧组人数</label>
+                    <input type="number" class="form-control" name="num_crew" required value="{{ num_crew }}">
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault05" class="form-label">流行风格数量 <a href="#" data-toggle="tooltip"
+                                                                                  title="流行风格包括冒险、动画、奇幻、家庭、动作、科幻">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-bell-fill" viewBox="0 0 16 16">
+                            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+                        </svg>
+                    </a></label>
+                    <input type="number" class="form-control" name="is_popular_genres" required
+                           value="{{ is_popular_genres }}">
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault05" class="form-label">关键词数量</label>
+                    <input type="number" class="form-control" name="num_Keywords" required value="{{ num_Keywords }}">
+                </div>
+                <div class="col-12" style="margin-left: 45%;margin-top: 20px">
+                    <button class="btn btn-primary" type="submit">开始预测</button>
+                </div>
+            </form>
+            {% if predicted_result %}
+                <label>预测结果：{{ predicted_result }}</label>
+                <label style="margin-left: 20px">用时：{{ usetime }}s</label>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
